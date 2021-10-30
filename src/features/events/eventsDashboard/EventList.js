@@ -1,11 +1,13 @@
 
 import { EventListItem } from './EventListItem'
-export const EventList = ({ events }) => {
+export const EventList = ({ events, handleSelectedEvent, handleDeleteEvent,history }) => {
 
     return (
         <>
             {events.map((eve) => (
-                <EventListItem key={eve.id} event={eve} />
+                <EventListItem history={history} key={eve.id} event={eve}
+                    handleDeleteEvent={handleDeleteEvent}
+                    handleSelectedEvent={handleSelectedEvent} />
 
             ))}
         </>

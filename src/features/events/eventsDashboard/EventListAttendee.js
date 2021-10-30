@@ -1,6 +1,5 @@
 import { Image, List } from "semantic-ui-react"
 
-
 export const EventListAttendee = ({ attendee }) => {
 
 

@@ -5,22 +5,21 @@ import './index.css';
 import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux';
+import { configureStore } from './app/store/configureStore';
 
 const rootEl = document.getElementById('root');
 
-// function render() {
-//   ReactDOM.render(
-//     <React.StrictMode>
-//       <App />
-//     </React.StrictMode>,
-//     rootEl
-//   );
-// }
+const store = configureStore();
+
 function render() {
   ReactDOM.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+
+    </Provider>
     ,
     rootEl
   );

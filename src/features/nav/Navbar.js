@@ -21,7 +21,8 @@ export const Navbar = ({ handleFormOpen }) => {
                     <img src={LogoImage} alt="logo.png" style={{ 'marginRight': '.5rem' }} />
                     Re-vents
                 </Menu.Item>
-                <Menu.Item as={NavLink} to="/Events" name="Events" />
+                <Menu.Item as={NavLink} to="/events" name="Events" />
+                <Menu.Item as={NavLink} to="/sandbox" name="Sandbox" />
                 {authentication && <Menu.Item>
                     <Button as={NavLink} to="/createEvent" positive inverted content="Create Event"></Button>
                 </Menu.Item>

@@ -1,6 +1,6 @@
 import { Segment, Image, Item, Button, Header } from "semantic-ui-react"
 import { Link } from 'react-router-dom'
-export const EventDetailedHeader = () => {
+export const EventDetailedHeader = ({ event }) => {
     const eventImageStyle = {
         filter: 'brightness(30%)',
     };
@@ -18,7 +18,7 @@ export const EventDetailedHeader = () => {
         <Segment.Group>
             <Segment basic attached='top' style={{ padding: '0' }}>
                 <Image
-                    src={`/assets/categoryImages/drinks.jpg`}
+                    src={`/assets/categoryImages/${event.category}.jpg`}
                     fluid
                     style={eventImageStyle}
                 />
@@ -29,12 +29,12 @@ export const EventDetailedHeader = () => {
                             <Item.Content>
                                 <Header
                                     size='huge'
-                                    content='Event Title'
+                                    content={event.title}
                                     style={{ color: 'white' }}
                                 />
-                                <p>Event Date</p>
+                                <p>{event.date}</p>
                                 <p>
-                                    Hosted by <strong>Bob</strong>
+                                    Hosted by <strong>{event.hostedBy}</strong>
                                 </p>
                             </Item.Content>
                         </Item>
@@ -46,7 +46,7 @@ export const EventDetailedHeader = () => {
                 <Button>Cancel My Place</Button>
                 <Button color='teal'>JOIN THIS EVENT</Button>
 
-                <Button as={Link} to={`/manage/`} color='orange' floated='right'>
+                <Button as={Link} to={`/manage/${event.id}`} color='orange' floated='right'>
                     Manage Event
                 </Button>
             </Segment>

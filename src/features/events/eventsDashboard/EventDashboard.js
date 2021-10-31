@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { EventList } from './EventList';
 import { sampleData } from '../../../app/api/SampleDate';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteEvent } from '../eventActions';
 
-export const EventDashboard = ({ handleSelectedEvent, history }) => {
+export const EventDashboard = ({history }) => {
 
-    const [events, setEvents] = useState(sampleData);
+    // const [events, setEvents] = useState(sampleData);
+    const events = useSelector(state => state.event.events);
 
     // function addEvent(event) {
     //     setEvents([...events, event]);
@@ -17,10 +20,6 @@ export const EventDashboard = ({ handleSelectedEvent, history }) => {
 
     // }
 
-    function handleDeleteEvent(eventId) {
-        let eventss = events.filter(eve => eve.id !== eventId);
-        setEvents(eventss);
-    }
 
 
 
@@ -29,9 +28,7 @@ export const EventDashboard = ({ handleSelectedEvent, history }) => {
         < Grid >
 
             <Grid.Column width={10}>
-                <EventList events={events} history={history}
-                    handleDeleteEvent={handleDeleteEvent}
-                    handleSelectedEvent={handleSelectedEvent}></EventList>
+                <EventList events={events} ></EventList>
             </Grid.Column>
             <Grid.Column width={6}>
                 <h1>Event filters</h1>

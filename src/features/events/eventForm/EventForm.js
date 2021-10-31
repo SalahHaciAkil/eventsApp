@@ -2,9 +2,14 @@ import { useState } from "react";
 import cuid from 'cuid'
 import { Button, Form, Header, Segment } from "semantic-ui-react"
 import { Link } from "react-router-dom";
-export const EventForm = ({ setFormOpen, addEvent, selectedEvent, handleUpdateEvent }) => {
-
-    let initialValues = selectedEvent ?? {
+import { useDispatch, useSelector } from "react-redux";
+import { createEvent, updateEvent } from "../eventActions";
+import userPhoto from '../../../assets/user.png'
+export const EventForm = ({ match, history }) => {
+    let eventId = match.params.id;
+    const dispatch = useDispatch();
+    const event = useSelector(state => state.event.events.find(eve => eve.id === eventId));
+    let initialValues = event ? { ...event } : {
         title: '',
         category: '',
         description: '',
@@ -13,13 +18,17 @@ export const EventForm = ({ setFormOpen, addEvent, selectedEvent, handleUpdateEv
         date: ''
 
     }
-
     const [values, setValues] = useState(initialValues);
 
+
+
+
     function handleSubmitEvent() {
-        selectedEvent ? handleUpdateEvent(values) :
-            addEvent({ ...values, attendees: [], id: cuid(), hostedBy: "salah", hostPhotoURL: "../../../assets/user.png" });
-        setFormOpen(false);
+
+        event ? dispatch(updateEvent({ ...values })) :
+            dispatch(createEvent({ ...values, id: cuid(), attendees: [], hostedBy: "salah", hostPhotoURL: userPhoto }));
+        history.push('/events')
+
     }
 
     function handleInputChange(e) {
@@ -30,9 +39,7 @@ export const EventForm = ({ setFormOpen, addEvent, selectedEvent, handleUpdateEv
     return (
 
         <Segment clearing>
-            {console.log("FromForm", selectedEvent)}
-            {console.log(values)}
-            <Header content={selectedEvent ? 'Edit event' : 'Create event'} />
+            <Header content={event ? 'Edit event' : 'Create event'} />
             <Form onSubmit={handleSubmitEvent}>
                 <Form.Field>
                     <input type="text" name="title" value={values.title} onChange={(e) => handleInputChange(e)} placeholder="Event title" />

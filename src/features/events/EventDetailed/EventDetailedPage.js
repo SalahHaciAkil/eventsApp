@@ -3,17 +3,23 @@ import { EventDetailedHeader } from "./EventDetailedHeader"
 import { EventDetailedInfo } from "./EventDetailedInfo"
 import { EventDetailedChat } from "./EventDetailedChat"
 import { EventDetailedSidebar } from "./EventDetailedSidebar"
-export const EventDetailedPage = () => (
+import { useSelector } from "react-redux"
+export const EventDetailedPage = ({ match }) => {
+    const event = useSelector(state => state.event.events.find(eve => eve.id === match.params.id))
 
+    return (
 
-    <Grid>
-        <Grid.Column width={10}>
-            <EventDetailedHeader />
-            <EventDetailedInfo />
-            <EventDetailedChat />
-        </Grid.Column>
-        <Grid.Column width={6}>
-            <EventDetailedSidebar />
-        </Grid.Column>
-    </Grid>
-)
+        <Grid>
+            <Grid.Column width={10}>
+                <EventDetailedHeader event={event} />
+                <EventDetailedInfo event={event} />
+                <EventDetailedChat />
+            </Grid.Column>
+            <Grid.Column width={6}>
+                <EventDetailedSidebar attendees={event.attendees} />
+            </Grid.Column>
+        </Grid>
+
+    )
+}
+

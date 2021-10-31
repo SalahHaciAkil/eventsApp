@@ -1,7 +1,12 @@
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { Button, Container, Icon, Item, List, Segment } from "semantic-ui-react";
+import { deleteEvent } from "../eventActions";
 import { EventListAttendee } from './EventListAttendee';
 
-export const EventListItem = ({ event, handleSelectedEvent, handleDeleteEvent, history }) => {
+export const EventListItem = ({ event }) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -34,7 +39,7 @@ export const EventListItem = ({ event, handleSelectedEvent, handleDeleteEvent, h
                 <Segment >
 
                     <List horizontal>
-                        {event.attendees.map((attendee) => (
+                        {event.attendees && event.attendees.map((attendee) => (
                             <EventListAttendee key={attendee.id} attendee={attendee} />
                         ))}
 
@@ -49,7 +54,7 @@ export const EventListItem = ({ event, handleSelectedEvent, handleDeleteEvent, h
                         <p>{event.description}</p>
 
                         <Button onClick={() => (history.push(`/events/${event.id}`))} color="teal" floated="right" content="View" />
-                        <Button onClick={() => handleDeleteEvent(event.id)} color="red" floated="right" content="Delete" />
+                        <Button onClick={() => dispatch(deleteEvent(event.id))} color="red" floated="right" content="Delete" />
                     </Container>
                 </Segment>
 

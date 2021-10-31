@@ -55,6 +55,7 @@ export const EventListItem = ({ event }) => {
 
                         <Button onClick={() => (history.push(`/events/${event.id}`))} color="teal" floated="right" content="View" />
                         <Button onClick={() => dispatch(deleteEvent(event.id))} color="red" floated="right" content="Delete" />
+                        {/* sad */}
                     </Container>
                 </Segment>
 
